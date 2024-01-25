@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -24,3 +25,31 @@
     {% endfor %}
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عنوان الصفحة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Utilisez une police qui prend en charge l'arabe */
+            direction: rtl; /* Définissez la direction du texte comme droite à gauche */
+            text-align: right; /* Alignez le texte à droite */
+        }
+    </style>
+</head>
+<body>
+    <h1>عنوان الصفحة</h1>
+
+    <!-- Section pour les articles -->
+    {% for article in articles %}
+    <div>
+        <h3>{{ article['title'] }}</h3>
+        <p>{{ article['content'] }}</p>
+    </div>
+    {% endfor %}
+</body>
+</html>
+>>>>>>> 87692044ee66921fe7ce77175e5f0169cef37b91
