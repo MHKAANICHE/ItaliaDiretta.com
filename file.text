@@ -36,9 +36,21 @@ pip install beautifulsoup4 requests
 Attendez que le processus d'installation soit terminé. Vous devriez voir un message indiquant que les bibliothèques ont été installées avec succès.
 
 La prochaine étape sera de développer le script de scraper. Vous pouvez créer un fichier Python dans votre dossier de projet (par exemple, scraper.py) et commencer à écrire le script. Si vous avez des questions ou si vous avez terminé cette étape, n'hésitez pas à le faire savoir !
-
+---------------
+PS D:\CODING_DOJO\2_Python\ItaliaDiretta.com> Set-ExecutionPolicy Bypass -Scope Process -Force   
+>>
+PS D:\CODING_DOJO\2_Python\ItaliaDiretta.com> .\venv\Scripts\Activate
+>>
+(venv) PS D:\CODING_DOJO\2_Python\ItaliaDiretta.com> Scripts\Activate.ps1
+>> 
+(venv) PS D:\CODING_DOJO\2_Python\ItaliaDiretta.com> pip install -r requirements.txt
 --------------------
-
+(venv) PS D:\CODING_DOJO\2_Python\ItaliaDiretta.com> python scraper.py
+--------------------
+pip freeze > requirements.txt
+-----------------------------------
+pip install -r requirements.txt
+-------------------------------------
 la lecture des articles et la génération de résumés nécessitent des outils spécifiques. Il existe plusieurs bibliothèques et outils dans le domaine du traitement du langage naturel (NLP) qui peuvent être utilisés pour la lecture, l'analyse et la synthèse de texte. L'une des bibliothèques les plus populaires pour le NLP en Python est spaCy.
 
 Voici comment vous pourriez intégrer spaCy dans votre script pour extraire du texte à partir d'articles et générer des résumés :

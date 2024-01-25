@@ -63,4 +63,5 @@ def get_summaries_from_archive(archive_folder):
     return summaries
 
 if __name__ == '__main__':
+     # Lancer le serveur Flask
     app.run(debug=True)

@@ -9,7 +9,7 @@ import schedule
 import time
 import shutil
 from theme_synthesis import theme_synthesis  
-from app import get_articles
+from server import get_articles
 
 # Chargez le modèle spaCy italien
 nlp = spacy.load("it_core_news_sm")
@@ -117,55 +117,57 @@ def archive_old_operations():
     if not os.path.exists(archive_folder):
         os.makedirs(archive_folder)
 
-     # Parcourez les dossiers dans 'operations_scraper' et déplacez les anciennes opérations dans le dossier d'archive
-    operations_folder = 'operations_scraper_'
-    for folder_name in os.listdir(operations_folder):
-        if folder_name.startswith("operation_scraper"):  # Vérifiez si le dossier commence par "operation_scraper"
+    # Obtenez le répertoire de travail actuel
+    current_directory = os.getcwd()
+
+    # Parcourez les dossiers dans le dossier du projet
+    for folder_name in os.listdir(current_directory):
+        if folder_name.startswith("operation_scraper"):  
             operation_date = folder_name.replace("operation_scraper", "")
             # Comparez la date de l'opération avec la date actuelle
             if operation_date < current_date:
-                source_path = os.path.join(operations_folder, folder_name)
+                source_path = os.path.join(project_folder_absolute, folder_name)
                 destination_path = os.path.join(archive_folder, folder_name)
                 shutil.move(source_path, destination_path)
 
 def main_scraping_job():
     # Liste des sites à scraper (nom, URL)
     sites_to_scrape = [
-        ("la Repubblica", "https://quotidiano.repubblica.it/"),
-        ("La Stampa", "https://www.lastampa.it/"),
-        ("Il Sole 24 Ore", "https://www.ilsole24ore.com/"),
-        ("il Fatto Quotidiano", "https://www.ilfattoquotidiano.it/"),
+        #("la Repubblica", "https://quotidiano.repubblica.it/"),
+        #("La Stampa", "https://www.lastampa.it/"),
+        #("Il Sole 24 Ore", "https://www.ilsole24ore.com/"),
+        #("il Fatto Quotidiano", "https://www.ilfattoquotidiano.it/"),
         ("La Gazzetta dello Sport", "https://www.gazzetta.it/"),
-        ("Il Messaggero", "https://www.ilmessaggero.it/"),
-        ("Il Resto del Carlino", "https://www.ilrestodelcarlino.it/"),
-        ("La Nazione", "https://www.lanazione.it/"),
-        ("Il Secolo XIX", "https://www.ilsecoloxix.it/"),
+        #("Il Messaggero", "https://www.ilmessaggero.it/"),
+        #("Il Resto del Carlino", "https://www.ilrestodelcarlino.it/"),
+        #("La Nazione", "https://www.lanazione.it/"),
+        #("Il Secolo XIX", "https://www.ilsecoloxix.it/"),
         ("Il Gazzettino", "https://www.ilgazzettino.it/"),
-        ("Il Giornale", "https://www.ilgiornale.it/"),
-        ("Corriere dell'Umbria", "https://corrieredellumbria.it/"),
-        ("L'Arena", "https://www.larena.it/"),
-        ("l'Unità", "https://www.unita.it/"),
-        ("La Padania", "https://www.lanuovapadania.it/"),
-        ("La Notizia", "https://www.lanotiziagiornale.it/"),
-        ("L'Eco di Bergamo", "https://www.ecodibergamo.it/"),
-        ("Secolo d'Italia", "https://www.secoloditalia.it/"),
-        ("L'Unione Sarda", "https://www.unionesarda.it/"),
-        ("Messaggero Veneto  Giornale del Friuli", "https://messaggeroveneto.gelocal.it/"),
-        ("Il Mattino", "https://www.ilmattino.it/"),  # Correction de l'URL
-        ("Tuttosport", "https://www.tuttosport.com/"),
-        ("Avvenire", "https://www.avvenire.it/"),
-        ("La Sicilia", "https://www.lasicilia.it/"),
-        ("Giornale di Sicilia", "https://gds.it/"),
-        ("La Gazzetta del Mezzogiorno", "https://www.lagazzettadelmezzogiorno.it/"),
-        ("Il Giornale di Vicenza", "https://www.ilgiornaledivicenza.it/"),
-        ("l'Adige", "https://www.ladige.it/"),
-        ("Giornale di Brescia", "https://www.giornaledibrescia.it/"),
-        ("Gazzetta di Parma", "https://www.gazzettadiparma.it/"),
-        ("Gazzetta del Sud", "https://gazzettadelsud.it/"),
-        ("Gazzetta di Modena", "https://www.gazzettadimodena.it/"),
-        ("Gazzetta di Mantova", "https://gazzettadimantova.gelocal.it/mantova/"),
-        ("Libero", "https://www.libero.it/"),
-        ("Corriere del Trentino", "https://corrieredeltrentino.corriere.it/"),
+        #("Il Giornale", "https://www.ilgiornale.it/"),
+        #("Corriere dell'Umbria", "https://corrieredellumbria.it/"),
+        #("L'Arena", "https://www.larena.it/"),
+        #("l'Unità", "https://www.unita.it/"),
+        #("La Padania", "https://www.lanuovapadania.it/"),
+        #("La Notizia", "https://www.lanotiziagiornale.it/"),
+        #("L'Eco di Bergamo", "https://www.ecodibergamo.it/"),
+        #("Secolo d'Italia", "https://www.secoloditalia.it/"),
+        #("L'Unione Sarda", "https://www.unionesarda.it/"),
+        #("Messaggero Veneto  Giornale del Friuli", "https://messaggeroveneto.gelocal.it/"),
+        #("Il Mattino", "https://www.ilmattino.it/"),  # Correction de l'URL
+        #("Tuttosport", "https://www.tuttosport.com/"),
+        #("Avvenire", "https://www.avvenire.it/"),
+        #("La Sicilia", "https://www.lasicilia.it/"),
+        #("Giornale di Sicilia", "https://gds.it/"),
+        #("La Gazzetta del Mezzogiorno", "https://www.lagazzettadelmezzogiorno.it/"),
+        #("Il Giornale di Vicenza", "https://www.ilgiornaledivicenza.it/"),
+        #("l'Adige", "https://www.ladige.it/"),
+        #("Giornale di Brescia", "https://www.giornaledibrescia.it/"),
+        #("Gazzetta di Parma", "https://www.gazzettadiparma.it/"),
+        #("Gazzetta del Sud", "https://gazzettadelsud.it/"),
+        #("Gazzetta di Modena", "https://www.gazzettadimodena.it/"),
+        #("Gazzetta di Mantova", "https://gazzettadimantova.gelocal.it/mantova/"),
+        #("Libero", "https://www.libero.it/"),
+        #("Corriere del Trentino", "https://corrieredeltrentino.corriere.it/"),
         ("Metro", "https://metronews.it/")
     ]
 
